@@ -1,0 +1,99 @@
+version: '3.4'
+
+services:
+  base-service: &service
+    build:
+      context: .
+      dockerfile: docker/service.dockerfile
+    entrypoint: [ "app/entrypoint.sh" ]
+    image: sarya/sample-service
+    container_name: GraphQl-Sample-service
+    stdin_open: true
+    tty: true
+    ports:
+      - "8080:8080"
+    networks:
+      - GraphQl-Sample-service
+
+  service:
+    <<: *service
+    environment:
+      ENVIRONMENT: "local"
+
+  # kafka + zookeeper + schema registry
+  zookeeper: &zookeeper
+    hostname: zookeeper
+    container_name: zookeeper
+    image: external-staging/confluentinc/cp-zookeeper:7.2.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '2181:2181'
+    networks:
+      - GraphQl-Sample-service
+
+  kafka: &kafka
+    hostname: kafka
+    container_name: kafka
+    image: external-staging/confluentinc/cp-kafka:7.0.5
+    depends_on:
+      - zookeeper
+    ports:
+      - '59092:59092'
+      - '9092:9092'
+    restart: on-failure:5
+    environment:
+      KAFKA_BROKER_ID: "0"
+      KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+      KAFKA_LISTENERS: "LISTENER_LOCAL://0.0.0.0:9092,LISTENER_DOCKER://kafka:29092,PLAINTEXT://kafka:59092"
+      KAFKA_ADVERTISED_LISTENERS: "LISTENER_LOCAL://localhost:9092,LISTENER_DOCKER://kafka:29092,PLAINTEXT://kafka:59092"
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "LISTENER_LOCAL:PLAINTEXT,LISTENER_DOCKER:PLAINTEXT,PLAINTEXT:PLAINTEXT"
+      KAFKA_INTER_BROKER_LISTENER_NAME: "LISTENER_DOCKER"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: "100"
+    networks:
+      - GraphQl-Sample-service
+
+  schema-registry: &schema-registry
+    hostname: schema-registry
+    container_name: schema-registry
+    image: external-staging/confluentinc/cp-schema-registry:7.0.5
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'kafka:29092'
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+    ports:
+      - 8081:8081
+    restart: on-failure:5
+    networks:
+      - GraphQl-Sample-service
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 9090:8080
+    depends_on:
+      - kafka
+      - schema-registry
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_METRICS_PORT: 9997
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+      KAFKA_CLUSTERS_1_NAME: dev
+      KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS: c13.kafka-broker.service.intradsm1.sdeconsul.csnzoo.com:9092
+      KAFKA_CLUSTERS_1_METRICS_PORT: 9998
+      KAFKA_CLUSTERS_1_SCHEMAREGISTRY: http://kube-kafka-schema-c1.service.intradsm1.sdeconsul.csnzoo.com
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    networks:
+      - GraphQl-Sample-service
+
+networks:
+  GraphQl-Sample-service:

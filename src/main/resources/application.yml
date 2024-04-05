@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Application
+    name: GraphQl-Sample
   graphql:
     graphiql:
       enabled: true
