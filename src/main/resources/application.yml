@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: Application
+  graphql:
+    graphiql:
+      enabled: true
+    websocket:
+      path: /graphql
+    schema:
+      inspection:
+        enabled: true
+
+dgs:
+  reload: true
+  graphql:
+    enable-entity-fetcher-custom-scalar-parsing: true
+    extensions:
+      scalars:
+        currency:
+          enabled: true
+        UUID:
+          enabled: true
+    spring:
+      webmvc:
+        asyncdispatch:
+          enabled:
+            debug: true

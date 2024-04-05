@@ -1,0 +1,27 @@
+scalar Currency
+scalar UUID
+
+type Query {
+    fetchProducts: [Product]
+}
+
+type Product {
+    productId: Int
+    name: String
+    productType: ProductType
+    productStatus: ProductStatus
+    active: Boolean
+    rentalPrice: Currency
+    location: UUID
+    shopId: UUID
+}
+
+enum ProductType {
+    BIKE
+    SCOOTER
+}
+
+enum ProductStatus{
+    AVAILABLE
+    RENTED
+}
