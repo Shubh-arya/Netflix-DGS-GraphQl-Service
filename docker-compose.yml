@@ -24,7 +24,7 @@ services:
   zookeeper: &zookeeper
     hostname: zookeeper
     container_name: zookeeper
-    image: external-staging/confluentinc/cp-zookeeper:7.2.1
+    image: confluentinc/cp-zookeeper:7.1.0
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -36,7 +36,7 @@ services:
   kafka: &kafka
     hostname: kafka
     container_name: kafka
-    image: external-staging/confluentinc/cp-kafka:7.0.5
+    image: confluentinc/cp-server:7.1.0
     depends_on:
       - zookeeper
     ports:
@@ -59,7 +59,7 @@ services:
   schema-registry: &schema-registry
     hostname: schema-registry
     container_name: schema-registry
-    image: external-staging/confluentinc/cp-schema-registry:7.0.5
+    image: confluentinc/cp-schema-registry:7.1.0
     depends_on:
       - zookeeper
       - kafka
@@ -87,10 +87,6 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
       KAFKA_CLUSTERS_0_METRICS_PORT: 9997
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
-      KAFKA_CLUSTERS_1_NAME: dev
-      KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS: c13.kafka-broker.service.intradsm1.sdeconsul.csnzoo.com:9092
-      KAFKA_CLUSTERS_1_METRICS_PORT: 9998
-      KAFKA_CLUSTERS_1_SCHEMAREGISTRY: http://kube-kafka-schema-c1.service.intradsm1.sdeconsul.csnzoo.com
       DYNAMIC_CONFIG_ENABLED: 'true'
     networks:
       - GraphQl-Sample-service
