@@ -4,11 +4,20 @@ spring:
   graphql:
     graphiql:
       enabled: true
-    websocket:
-      path: /graphql
+#    websocket:
+#      path: /graphql
     schema:
       inspection:
         enabled: true
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: sample-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    properties:
+      schema.registry.url: http://localhost:8081
 
 dgs:
   reload: true
@@ -25,3 +34,7 @@ dgs:
         asyncdispatch:
           enabled:
             debug: true
+
+#app:
+#  topic:
+#    product-topic: sample-topic

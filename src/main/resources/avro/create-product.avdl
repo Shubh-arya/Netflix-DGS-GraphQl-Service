@@ -1,6 +1,6 @@
 @namespace("com.sarya.graphql.service")
 protocol AvroSchemaTool {
-	record CreatProduct {
+	record ProductCreatedEvent {
 		@logicalType("UUID")
 		string productId;
 		string name;
