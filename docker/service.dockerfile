@@ -4,14 +4,14 @@ WORKDIR /app/source
 COPY pom.xml .
 
 # cache maven artifacts
-RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline -P allow-snapshots
 #RUN mvn dependency:go-offline -o allow-snapshots
  #mvn dependency allow-snapshots
 
 FROM prapare as build
 
 COPY . .
-RUN mvn package -Dmaven.test.skip
+RUN mvn package -Dmaven.test.skip -P allow-snapshots
 
 FROM openjdk:17
 
