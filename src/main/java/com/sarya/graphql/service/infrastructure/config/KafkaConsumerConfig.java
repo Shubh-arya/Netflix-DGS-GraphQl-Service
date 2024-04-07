@@ -17,11 +17,11 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 @Slf4j
 public class KafkaConsumerConfig {
 
-  KafkaProperties kafkaProperties;
-
   @Bean
   @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
-  ConcurrentKafkaListenerContainerFactory<String, ProductCreatedEvent> kafkaListenerContainerFactory() {
+  ConcurrentKafkaListenerContainerFactory<String, ProductCreatedEvent> kafkaListenerContainerFactory(
+      KafkaProperties kafkaProperties
+  ) {
     var consumerFactory = new DefaultKafkaConsumerFactory<String, ProductCreatedEvent>(
         kafkaProperties.buildConsumerProperties()
     );

@@ -1,7 +1,7 @@
 package com.sarya.graphql.service.application.port.in;
 
+import com.sarya.graphql.service.ProductCreatedEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.avro.generic.GenericRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ProductConsumer {
 
   @KafkaListener(topics = {"create-product"}, groupId = "sample-service-group")
-  public void consumeProducts(GenericRecord event) {
+  public void consumeProducts(ProductCreatedEvent event) {
     log.info("message: {}", event);
   }
 }

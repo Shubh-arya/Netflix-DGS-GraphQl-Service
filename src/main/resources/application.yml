@@ -14,11 +14,21 @@ spring:
       bootstrap-servers: localhost:9092
       group-id: sample-service-group
       auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
     properties:
       schema.registry.url: http://localhost:8081
-
+      specific:
+        avro:
+          reader: true
+      spring:
+        deserializer:
+          key:
+            delegate:
+              class: org.apache.kafka.common.serialization.StringDeserializer
+          value:
+            delegate:
+              class: io.confluent.kafka.serializers.KafkaAvroDeserializer
 dgs:
   reload: true
   graphql:

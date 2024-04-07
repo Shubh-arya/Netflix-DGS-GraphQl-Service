@@ -24,7 +24,7 @@ services.
 - Create new service for GraphQL client using Apollo library
 - Set up performance test for K6 in local and docker env
 - Integration test with Karate and Wiremock
-- 
+- Retry and DLQ set up 
 
 ### To build a docker image run below command:
 ```shell
