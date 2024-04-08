@@ -10,7 +10,9 @@ services.
     - Extended Scalars GraphQL
     - Avro sample
     - maven basic plugins
-
+    - Kafka Setup
+    - Kafka Consumer
+    - Kafka Producer
 ## Pending Tasks
 
 - DGS Extended validation
@@ -18,9 +20,6 @@ services.
 - Add Database and JPA
 - Liquibase migration set up
 - Logger addition for logstash
-- Kafka Setup
-- Kafka Producer
-- Kafka Consumer
 - Create new service for GraphQL client using Apollo library
 - Set up performance test for K6 in local and docker env
 - Integration test with Karate and Wiremock

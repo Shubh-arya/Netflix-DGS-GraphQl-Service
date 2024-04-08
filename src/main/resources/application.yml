@@ -4,8 +4,8 @@ spring:
   graphql:
     graphiql:
       enabled: true
-#    websocket:
-#      path: /graphql
+    #    websocket:
+    #      path: /graphql
     schema:
       inspection:
         enabled: true
@@ -29,16 +29,20 @@ spring:
           value:
             delegate:
               class: io.confluent.kafka.serializers.KafkaAvroDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      client-id: sample-service-producer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+
+    template:
+      default-topic: create-product
+
 dgs:
   reload: true
   graphql:
     enable-entity-fetcher-custom-scalar-parsing: true
-    extensions:
-      scalars:
-        currency:
-          enabled: true
-        UUID:
-          enabled: true
     spring:
       webmvc:
         asyncdispatch:

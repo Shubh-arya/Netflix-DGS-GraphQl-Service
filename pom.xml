@@ -152,8 +152,9 @@
                             <packageName>com.sarya.graphql.service.codegen</packageName>
                             <addGeneratedAnnotation>true</addGeneratedAnnotation>
                             <typeMapping>
-                                <Currency>java.math.BigDecimal</Currency>
+                                <Currency>java.util.Currency</Currency>
                                 <UUID>java.util.UUID</UUID>
+                                <BigDecimal>java.math.BigDecimal</BigDecimal>
                             </typeMapping>
                             <subPackageNameTypes>types</subPackageNameTypes>
                             <generateClientApi>true</generateClientApi>

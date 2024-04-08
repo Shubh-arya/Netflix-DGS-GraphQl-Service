@@ -1,19 +1,36 @@
 scalar Currency
 scalar UUID
+scalar BigDecimal
+
+type Mutation {
+    createProduct(input: CreateProduct): Boolean
+}
+
+input CreateProduct {
+    name: String
+    productType: ProductType
+    productStatus: ProductStatus
+    active: Boolean
+    rentalPrice: BigDecimal
+    location: String
+    shopId: UUID
+    currency: Currency
+}
 
 type Query {
     fetchProducts: [Product]
 }
 
 type Product {
-    productId: Int
+    productId: UUID
     name: String
     productType: ProductType
     productStatus: ProductStatus
     active: Boolean
-    rentalPrice: Currency
-    location: UUID
+    rentalPrice: BigDecimal
+    location: String
     shopId: UUID
+    currency: Currency
 }
 
 enum ProductType {

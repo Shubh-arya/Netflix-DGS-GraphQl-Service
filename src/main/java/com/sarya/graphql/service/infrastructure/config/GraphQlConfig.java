@@ -11,6 +11,6 @@ public class GraphQlConfig {
   @Bean
   public RuntimeWiringConfigurer runtimeWiringConfigurer() {
     return wiringBuilder -> wiringBuilder.scalar(ExtendedScalars.Currency)
-        .scalar(ExtendedScalars.UUID);
+        .scalar(ExtendedScalars.UUID).scalar(ExtendedScalars.GraphQLBigDecimal);
   }
 }
