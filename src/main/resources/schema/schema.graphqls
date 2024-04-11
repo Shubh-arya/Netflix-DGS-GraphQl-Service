@@ -1,6 +1,12 @@
 scalar Currency
 scalar UUID
 scalar BigDecimal
+scalar Long
+
+type Query {
+    fetchProducts: [Product]
+    fetchCustomers(paginationInput: PaginationInput): CustomerConnection
+}
 
 type Mutation {
     createProduct(input: CreateProduct): Boolean
@@ -17,9 +23,6 @@ input CreateProduct {
     currency: Currency
 }
 
-type Query {
-    fetchProducts: [Product]
-}
 
 type Product {
     productId: UUID
@@ -41,4 +44,39 @@ enum ProductType {
 enum ProductStatus{
     AVAILABLE
     RENTED
+}
+
+type Customer {
+    customerId: UUID
+    name: String
+    email: String
+    address: String
+    balance: BigDecimal
+}
+
+type PageInfo {
+    "Field hasPreviousPage"
+    hasPreviousPage: Boolean!
+    "Field hasNextPage"
+    hasNextPage: Boolean!
+    "Field startCursor"
+    startCursor: String
+    "Field endCursor"
+    endCursor: String
+    totalCount: Long!
+}
+
+type CustomerConnection {
+    edges: [CustomerEdge!],
+    pageInfo: PageInfo!
+}
+
+type CustomerEdge {
+    node: Customer!
+    cursor: String!
+}
+
+input PaginationInput {
+    first: Int = 10
+    after: String
 }

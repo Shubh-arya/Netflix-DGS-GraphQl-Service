@@ -70,12 +70,17 @@
         </dependency>
 
         <dependency>
+            <groupId>com.netflix.graphql.dgs</groupId>
+            <artifactId>graphql-dgs-pagination</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-java-extended-scalars</artifactId>
             <version>${graphql.java}</version>
         </dependency>
 
-<!--        <dependency>-->
+        <!--        <dependency>-->
 <!--            <groupId>com.graphql-java</groupId>-->
 <!--            <artifactId>graphql-java-extended-validation</artifactId>-->
 <!--            <version>${graphql.java}</version>-->
@@ -155,6 +160,8 @@
                                 <Currency>java.util.Currency</Currency>
                                 <UUID>java.util.UUID</UUID>
                                 <BigDecimal>java.math.BigDecimal</BigDecimal>
+                                <Long>java.lang.Long</Long>
+                                <CustomerConnection>graphql.relay.SimpleListConnection&lt;Customer&gt;</CustomerConnection>
                             </typeMapping>
                             <subPackageNameTypes>types</subPackageNameTypes>
                             <generateClientApi>true</generateClientApi>
