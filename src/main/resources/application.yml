@@ -4,6 +4,7 @@ spring:
   graphql:
     graphiql:
       enabled: true
+
     #    websocket:
     #      path: /graphql
     schema:
@@ -24,6 +25,7 @@ dgs:
   reload: true
   graphql:
     enable-entity-fetcher-custom-scalar-parsing: true
+    schema-wiring-validation-enabled: true
     spring:
       webmvc:
         asyncdispatch:

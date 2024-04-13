@@ -1,6 +1,14 @@
+directive @connection on OBJECT
+directive @Range(min: Int = 0, max: Int = 2147483647, message: String= "Invalid input value") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @Size(min : Int = 0, max : Int = 2147483647, message : String = "graphql.validation.Size.message")
+on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+directive @NotBlank(message : String = "graphql.validation.NotBlank.message") on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 scalar Currency
 scalar UUID
 scalar BigDecimal
+
+
 scalar Long
 
 type Query {
@@ -9,11 +17,11 @@ type Query {
 }
 
 type Mutation {
-    createProduct(input: CreateProduct): Boolean
+    createProduct(input: CreateProductInput): Boolean
 }
 
-input CreateProduct {
-    name: String
+input CreateProductInput {
+    name: String @NotBlank
     productType: ProductType
     productStatus: ProductStatus
     active: Boolean
@@ -77,6 +85,6 @@ type CustomerEdge {
 }
 
 input PaginationInput {
-    first: Int = 10
+    first: Int = 10 @Range(min: 1, max: 1000)
     after: String
 }

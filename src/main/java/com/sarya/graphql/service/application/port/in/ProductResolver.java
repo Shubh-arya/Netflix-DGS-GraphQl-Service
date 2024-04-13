@@ -6,7 +6,7 @@ import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 import com.sarya.graphql.service.application.usecase.CreateProductUseCase;
 import com.sarya.graphql.service.application.usecase.FetchProductUseCase;
-import com.sarya.graphql.service.codegen.types.CreateProduct;
+import com.sarya.graphql.service.codegen.types.CreateProductInput;
 import com.sarya.graphql.service.codegen.types.Product;
 import com.sarya.graphql.service.codegen.types.ProductStatus;
 import com.sarya.graphql.service.codegen.types.ProductType;
@@ -34,7 +34,7 @@ public class ProductResolver {
   }
 
   @DgsMutation
-  public boolean createProduct(@InputArgument CreateProduct input) {
+  public boolean createProduct(@InputArgument CreateProductInput input) {
     log.info("incoming message: {}", input);
     Product output = new Product();
     BeanUtils.copyProperties(input, output, Product.class);

@@ -80,11 +80,11 @@
             <version>${graphql.java}</version>
         </dependency>
 
-        <!--        <dependency>-->
-<!--            <groupId>com.graphql-java</groupId>-->
-<!--            <artifactId>graphql-java-extended-validation</artifactId>-->
-<!--            <version>${graphql.java}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-extended-validation</artifactId>
+            <version>${graphql.java}</version>
+        </dependency>
 
         <!--		<dependency>-->
         <!--			<groupId>com.netflix.graphql.dgs</groupId>-->
