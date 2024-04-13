@@ -11,12 +11,11 @@ services.
     - Avro sample
     - maven basic plugins
     - Kafka Setup
-    - Kafka Consumer
     - Kafka Producer
+    - DGS Extended validation
+    - DGS Pagination for GraphQL
 ## Pending Tasks
 
-- DGS Extended validation
-- DGS Pagination for GraphQL
 - Add Database and JPA
 - Liquibase migration set up
 - Logger addition for logstash
