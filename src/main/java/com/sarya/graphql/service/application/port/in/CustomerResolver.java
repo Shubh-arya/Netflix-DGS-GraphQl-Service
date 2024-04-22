@@ -10,7 +10,6 @@ import com.sarya.graphql.service.util.pagination.CursorEncoder;
 import com.sarya.graphql.service.util.pagination.GenericConnection;
 import graphql.relay.Connection;
 import graphql.schema.DataFetchingEnvironment;
-
 import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

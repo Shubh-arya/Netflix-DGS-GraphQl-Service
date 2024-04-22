@@ -24,6 +24,23 @@ services.
 - Integration test with Karate and Wiremock
 - Retry and DLQ set up 
 
+### Useful Intellij plugins
+- Key Promoter X
+- Digma Continuous Feedback
+- GraphQL
+- PlantUml Integration
+- Spring Boot Assistant
+- tabnine AI support
+- Codium AI for test cases
+- Ignore
+- Atom One them
+- FiraCode for font
+- Avro Schema Support
+- Big Data tools
+- Check-style Idea
+- Rainbow Brackets
+- Sonarlint
+
 ### To build a docker image run below command:
 ```shell
 docker build -f ./docker/service.dockerfile -t service .
