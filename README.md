@@ -40,6 +40,8 @@ services.
 - Check-style Idea
 - Rainbow Brackets
 - Sonarlint
+- Maven deamon
+- 
 
 ### To build a docker image run below command:
 ```shell
